@@ -62,8 +62,19 @@ module "rds" {
   db_sg_id       = module.security-group.db_sg_id
   pri_sub_5a_id = module.vpc.pri_sub_5a_id
   pri_sub_6b_id = module.vpc.pri_sub_6b_id
+  storage_type        = "gp2"
+  identifier          = "rdstf"
+  engine              = "mysql"
+  engine_version      = "8.0.27"
+  instance_class      = "db.t2.micro"
   db_username    = var.db_username
   db_password    = var.db_password
+  publicly_accessible = true
+  skip_final_snapshot = true
+
+   tags = {
+     Name = "MyRDS"
+   }
 }
 
 
@@ -85,3 +96,5 @@ module "route53" {
   cloudfront_hosted_zone_id = module.cloudfront.cloudfront_hosted_zone_id
 
 }
+
+
